@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'cidade'         => $_POST['cidade'] ?? '',
         'estado'         => $_POST['estado'] ?? '',
         'cep'            => $_POST['cep'] ?? '',
+        'info_medica'    => $_POST['info_medica'] ?? '',
         'senha'          => $_POST['senha'] ?? '',
     ];
 
