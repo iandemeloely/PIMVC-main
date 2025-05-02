@@ -9,70 +9,73 @@ class PlanoModel {
     private $beneficios;
     private $status;
 
-    public function __construct($idplano = null, $nome, $valor, $descricao, $duracao, $beneficios, $status) {
-        $this->idplano = $idplano;
-        $this->nome = $nome;
-        $this->valor = $valor;
-        $this->descricao = $descricao;
-        $this->duracao = $duracao;
-        $this->beneficios = $beneficios;
-        $this->status = $status;
-    }
-
+    // Métodos de acesso (Getters)
     public function getIdPlano() {
         return $this->idplano;
-    }
-
-    public function setIdPlano($idplano) {
-        $this->idplano = $idplano;
     }
 
     public function getNome() {
         return $this->nome;
     }
 
-    public function setNome($nome) {
-        $this->nome = $nome;
-    }
-
     public function getValor() {
         return $this->valor;
-    }
-
-    public function setValor($valor) {
-        $this->valor = $valor;
     }
 
     public function getDescricao() {
         return $this->descricao;
     }
 
-    public function setDescricao($descricao) {
-        $this->descricao = $descricao;
-    }
-
     public function getDuracao() {
         return $this->duracao;
-    }
-
-    public function setDuracao($duracao) {
-        $this->duracao = $duracao;
     }
 
     public function getBeneficios() {
         return $this->beneficios;
     }
 
-    public function setBeneficios($beneficios) {
-        $this->beneficios = $beneficios;
-    }
-
     public function getStatus() {
         return $this->status;
+    }
+
+    // Métodos de modificação (Setters)
+    public function setIdPlano($idplano) {
+        $this->idplano = $idplano;
+    }
+
+    public function setNome($nome) {
+        $this->nome = $nome;
+    }
+
+    public function setValor($valor) {
+        $this->valor = $valor;
+    }
+
+    public function setDescricao($descricao) {
+        $this->descricao = $descricao;
+    }
+
+    public function setDuracao($duracao) {
+        $this->duracao = $duracao;
+    }
+
+    public function setBeneficios($beneficios) {
+        $this->beneficios = $beneficios;
     }
 
     public function setStatus($status) {
         $this->status = $status;
     }
+
+    // Construtor
+    public function __construct($nome = '', $valor = 0, $descricao = '', $duracao = '', $beneficios = '', $status = '') {
+        $this->nome = $nome;
+        $this->valor = $valor;
+        $this->descricao = $descricao;
+        $this->duracao = $duracao;
+        $this->beneficios = $beneficios;
+        $this->status = $status;
+    }
 }
+
 ?>

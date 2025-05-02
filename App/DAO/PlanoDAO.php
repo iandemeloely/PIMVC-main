@@ -6,7 +6,8 @@ class PlanoDAO {
     private $conn;
 
     public function __construct() {
-        $this->conn = Conexao::Conexao();
+        $conexao = new Conexao();  // Instancia a classe Conexao
+        $this->conn = $conexao->fazConexao();  // Chama o método de conexão
     }
 
     public function cadastrarPlano(PlanoModel $plano) {
