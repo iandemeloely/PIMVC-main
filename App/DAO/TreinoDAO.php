@@ -1,55 +1,86 @@
 <?php
-require_once '../db/Conexao.php';
-require_once '../Model/TreinoModel.php';
 
-class TreinoDAO {
-    private $conn;
+class TreinoModel {
+    private $idtreino;
+    private $iduser;
+    private $nome;
+    private $descricao;
+    private $dias;
+    private $tempo;
+    private $tipo;
+    private $dataexecucao;
 
-    public function __construct() {
-        $this->conn = Conexao::getConexao();
+    // ID do treino
+    public function getIdTreino() {
+        return $this->idtreino;
     }
 
-    public function cadastrarTreino(TreinoModel $treino) {
-        try {
-            $sql = "INSERT INTO treinos (iduser, nome, descricao, dias, tempo) VALUES (?, ?, ?, ?, ?, ?)";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute([
-                $treino->getIdUser(),
-                $treino->getNome(),
-                $treino->getDescricao(),
-                $treino->getDias(),
-                $treino->getTempo(),
-                $treino->getTipo()
-            ]);
-            return true;
-        } catch (PDOException $e) {
-            echo "Erro ao cadastrar treino: " . $e->getMessage();
-            return false;
-        }
+    public function setIdTreino($idtreino) {
+        $this->idtreino = $idtreino;
     }
 
-    public function listarTreinosDoUsuario($iduser) {
-        try {
-            $sql = "SELECT * FROM treinos WHERE iduser = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute([$iduser]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            echo "Erro ao buscar treinos: " . $e->getMessage();
-            return [];
-        }
+    // ID do usuário
+    public function getIdUser() {
+        return $this->iduser;
     }
 
-    public function excluirTreino($idtreino) {
-        try {
-            $sql = "DELETE FROM treinos WHERE idtreino = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute([$idtreino]);
-            return true;
-        } catch (PDOException $e) {
-            echo "Erro ao excluir treino: " . $e->getMessage();
-            return false;
-        }
+    public function setIdUser($iduser) {
+        $this->iduser = $iduser;
+    }
+
+    // Nome do treino
+    public function getNome() {
+        return $this->nome;
+    }
+
+    public function setNome($nome) {
+        $this->nome = $nome;
+    }
+
+    // Descrição do treino
+    public function getDescricao() {
+        return $this->descricao;
+    }
+
+    public function setDescricao($descricao) {
+        $this->descricao = $descricao;
+    }
+
+    // Dias de treino
+    public function getDias() {
+        return $this->dias;
+    }
+
+    public function setDias($dias) {
+        $this->dias = $dias;
+    }
+
+    // Tempo de treino
+    public function getTempo() {
+        return $this->tempo;
+    }
+
+    public function setTempo($tempo) {
+        $this->tempo = $tempo;
+    }
+
+    // Tipo de treino
+    public function getTipo() {
+        return $this->tipo;
+    }
+
+    public function setTipo($tipo) {
+        $this->tipo = $tipo;
+    }
+
+    // Data de execução
+    public function getDataExecucao() {
+        return $this->dataexecucao;
+    }
+
+    public function setDataExecucao($dataexecucao) {
+        $this->dataexecucao = $dataexecucao;
     }
 }
+
 ?>

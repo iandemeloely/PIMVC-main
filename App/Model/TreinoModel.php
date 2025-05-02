@@ -9,7 +9,8 @@ class TreinoModel {
     private $tempo;
     private $tipo;
 
-    public function __construct($idtreino, $iduser, $nome, $descricao, $dias) {
+    // Corrigido para incluir $tempo e $tipo no construtor
+    public function __construct($idtreino, $iduser, $nome, $descricao, $dias, $tempo, $tipo) {
         $this->idtreino = $idtreino;
         $this->iduser = $iduser;
         $this->nome = $nome;
@@ -54,6 +55,7 @@ class TreinoModel {
     public function setDias($dias) {
         $this->dias = $dias;
     }
+
     public function getTempo() {
         return $this->tempo;
     }
@@ -61,7 +63,7 @@ class TreinoModel {
     public function setTempo($tempo) {
         $this->tempo = $tempo;
     }
-    
+
     public function getTipo() {
         return $this->tipo;
     }

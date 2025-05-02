@@ -1,23 +1,33 @@
 <?php
+require_once 'Conexao.php'; // Inclui a conexão
 require_once '../Model/TreinoModel.php';
-require_once '../DAO/TreinoDAO.php';
 
-class TreinoController {
-    public function cadastrarTreino($nome, $tipo, $descricao, $tempo) {
-        $treino = new TreinoModel();
-        $treino->setNome($nome);
-        $treino->setTipo($tipo);
-        $treino->setDescricao($descricao);
-        $treino->setTempo($tempo);
-        $treino->setDias($dias);
+class TreinoDAO {
+    private $con;
 
-        $dao = new TreinoDAO();
-        return $dao->cadastrarTreino($treino);
+    public function __construct() {
+        $conexao = new Conexao();
+        $this->con = $conexao->fazConexao();
     }
 
-    public function listarTreinos() {
-        $dao = new TreinoDAO();
-        return $dao->buscarTodos();
+    public function cadastrarTreino(TreinoModel $treino) {
+        $sql = "INSERT INTO treino (nome, descricao, dias, tempo, tipo, dataexecucao)
+                VALUES (:nome, :descricao, :dias, :tempo, :tipo, :dataexecucao)";
+        $stmt = $this->con->prepare($sql);
+        $stmt->bindValue(':nome', $treino->getNome());
+        $stmt->bindValue(':descricao', $treino->getDescricao());
+        $stmt->bindValue(':dias', $treino->getDias());
+        $stmt->bindValue(':tempo', $treino->getTempo());
+        $stmt->bindValue(':tipo', $treino->getTipo());
+        $stmt->bindValue(':dataexecucao', $treino->getDataExecucao());
+        return $stmt->execute();
+    }
+
+    public function buscarTodos() {
+        $sql = "SELECT * FROM treino";
+        $stmt = $this->con->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 ?>

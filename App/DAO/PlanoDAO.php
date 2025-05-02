@@ -1,22 +1,26 @@
 <?php
-require_once '../db/Conexao.php';
+require_once 'Conexao.php';
 require_once '../Model/PlanoModel.php';
 
 class PlanoDAO {
     private $conn;
 
     public function __construct() {
-        $this->conn = Conexao::getConexao();
+        $this->conn = Conexao::Conexao();
     }
 
     public function cadastrarPlano(PlanoModel $plano) {
         try {
-            $sql = "INSERT INTO planos (nome, valor, beneficios) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO planos (nome, valor, descricao, duracao, beneficios, status) 
+                    VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 $plano->getNome(),
                 $plano->getValor(),
-                $plano->getBeneficios()
+                $plano->getDescricao(),
+                $plano->getDuracao(),
+                $plano->getBeneficios(),
+                $plano->getStatus()
             ]);
             return true;
         } catch (PDOException $e) {
@@ -25,26 +29,13 @@ class PlanoDAO {
         }
     }
 
-    public function listarPlanos() {
+    public function buscarTodos() {
         try {
             $sql = "SELECT * FROM planos";
-            $stmt = $this->conn->query($sql);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "Erro ao listar planos: " . $e->getMessage();
+            echo "Erro ao buscar planos: " . $e->getMessage();
             return [];
-        }
-    }
-
-    public function excluirPlano($idplano) {
-        try {
-            $sql = "DELETE FROM planos WHERE idplano = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute([$idplano]);
-            return true;
-        } catch (PDOException $e) {
-            echo "Erro ao excluir plano: " . $e->getMessage();
-            return false;
         }
     }
 }
